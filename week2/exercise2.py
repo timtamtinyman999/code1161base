@@ -16,7 +16,7 @@ def getLetter(index):
     return alphabet(index)
 
 
-def week2exersise2():
+def week2exercise2():
     """Ok."""
     indices = [12, 2, 26, 7, 0, 12, 12, 4, 17]
     wordArray = map(getLetter, indices)
@@ -29,4 +29,4 @@ def week2exersise2():
 
 
 if __name__ == "__main__":
-    print(week2exersise2())
+    print(week2exercise2())
