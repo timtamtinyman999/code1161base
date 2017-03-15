@@ -3,14 +3,17 @@
 This file runs, but it's a mess!
 Go through it and change it until there are no more linter errors or warnings.
 Make sure that your code still runs without any errors by pressing
-[ctrl]+[shift]+[b] as often as you think you need to.
-"""
+[ctrl]+[shift]+[b] as often as you think you need to."""
+
 from __future__ import division
 from __future__ import print_function
+import os
+
 print ("hello! Let's get started")
 jobs = ['get', 'this', 'file', 'to', 'pass', 'the', 'linter']
 InOtherWords = "make it show no linter errors"
-import os
+
+
 print(jobs)
 print(InOtherWords)
 print(1+1, "is smaller than", 7*0.5, "is",
@@ -20,4 +23,6 @@ print(1+1, "is smaller than", 7*0.5, "is",
 def usefulFunction():
     """Print the current working directory."""
     print(os.getcwd())
+
+
 usefulFunction()
