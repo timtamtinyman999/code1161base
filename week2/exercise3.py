@@ -76,11 +76,11 @@ def loops_1c(number_of_items=5, symbol="#"):
     a string with exacly one symbol in it.
     E.g.: ['#', '#', '#', '#', '#']
     """
-    number_of_items = []
-    for i in range(5):
-        number_of_items.append("#")
-
-    return number_of_items
+    hashtag_list = []
+    for i in range(number_of_items):
+        hashtag_list.append(symbol)
+    return (hashtag_list)
+    print (hashtag_list)
 
 
 def loops_2():
@@ -101,14 +101,10 @@ def loops_2():
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
           ]
     """
-    star_square = []
+    star_box = []
     for j in range(10):
-        star_list = []
-        for i in range(10):
-            star_list.append("*")
-    star_square.append(star_list)
-
-    return star_square
+        star_box.append(loops_1c(number_of_items=10, symbol="*"))
+    return star_box
 
 
 def loops_3():
@@ -195,10 +191,8 @@ def loops_5():
     for i in range(10):
         coordinates_row = []
         for j in range(5):
-            coordinates_row.append("(i" + str(i) + ", j" + str(j) + ")")
-        number_square.append(number_square)
-
-    print(number_square)
+            coordinates_row.append('(i{}, j{})'.format(i, j))
+        number_square.append(coordinates_row)
     return number_square
 
 
@@ -223,10 +217,11 @@ def loops_6():
     TIP: look out for the starting condition.
     """
     the_wedge = []
+
     for i in range(10):
         row = []
         for j in range(i + 1):
-            row.append(j)
+            row.append(str(j))
         the_wedge.append(row)
     return the_wedge
 
