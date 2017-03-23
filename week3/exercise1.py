@@ -12,7 +12,12 @@ def loop_ranger(start, stop=None, step=1):
 
     Do this using any method apart from just using range()
     """
-    pass
+
+    first_loop = []
+    while start < stop:
+        first_loop.append(start)
+        start += step
+    return first_loop
 
 
 def lone_ranger(start, stop, step):
@@ -20,7 +25,10 @@ def lone_ranger(start, stop, step):
 
     Look up the docs for range() and wrap it in a 1:1 way
     """
-    pass
+    second_loop = []
+    for i in range(start, stop, step):
+        second_loop.append(i)
+    return second_loop
 
 
 def two_step_ranger(start, stop):
@@ -29,7 +37,12 @@ def two_step_ranger(start, stop):
     Sometimes you want to hide complexity.
     Make a range function that always has a step size of 2
     """
-    pass
+    step = 2
+    third_loop = []
+    while start < stop:
+        third_loop.append(start)
+        start += step
+    return third_loop
 
 
 def gene_krupa_range(start, stop, even_step, odd_step):
@@ -38,7 +51,16 @@ def gene_krupa_range(start, stop, even_step, odd_step):
     make a list that instead of having evenly spaced steps
     has odd steps be one size and even steps be another.
     """
-    pass
+    fourth_loop = []
+    loop = 0
+    while start < stop:
+        fourth_loop.append(start)
+        if loop % 2 == 0:
+            start += even_step
+        else:
+            start += odd_step
+        loop += 1
+    return fourth_loop
 
 
 def stubborn_asker(low, high):
@@ -67,6 +89,7 @@ def super_asker(low, high):
     that does it all!
     """
     pass
+
 
 if __name__ == "__main__":
     # this section does a quick test on your results and prints them nicely.
