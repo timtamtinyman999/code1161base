@@ -4,8 +4,6 @@ Steps on the way to making your own guessing game.
 """
 from __future__ import division
 from __future__ import print_function
-from exercise1 import not_number_rejector
-from exercise1 import super_asker
 import random
 
 
@@ -28,7 +26,33 @@ def advancedGuessingGame():
     Remember to think modular. Try to keep your functions small and single
     purpose if you can!
     """
-    pass
+    print("\nwelcome to the not bad guessing game")
+    print("A number between _ and _ ?")
+    upperBound = raw_input("Enter an upper bound: ")
+    lowerBound = raw_input("Enter a lower bound: ")
+
+    print("OK then, a number between {} and {} ?".format(lowerBound,
+                                                         upperBound))
+    upperBound = int(upperBound)
+    lowerBound = int(lowerBound)
+    actualNumber = random.randint(lowerBound, upperBound)
+
+    guessed = False
+
+    while not guessed:
+        guessedNumber = int(raw_input("guess a number: "))
+        if guessedNumber != guessedNumber:
+            print("Incorrect interger error 404 brain cells couldn't be found")
+        else:
+            print("you guessed {},".format(guessedNumber),)
+        if guessedNumber == actualNumber:
+            print("you got it!! It was {}".format(actualNumber))
+            guessed = True
+        elif guessedNumber < actualNumber:
+            print("too small, try again ")
+        else:
+            print("too big, try again   ")
+    return "You got it!"
 
 
 if __name__ == "__main__":

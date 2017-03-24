@@ -12,6 +12,7 @@ import os
 import random
 import sys
 sys.path.append(os.path.dirname(__file__)[:-5])
+print(sys.path)
 from codeHelpers import completion_message
 from codeHelpers import nyan_cat
 from codeHelpers import test
