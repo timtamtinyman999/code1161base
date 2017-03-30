@@ -13,9 +13,9 @@ def loop_ranger(start, stop=None, step=1):
     Do this using any method apart from just using range()
     """
     first_loop = []
-    while start < stop:
-        first_loop.append(start)
-        start += step
+    for i in range(start, stop, step):
+        first_loop.append(i)
+
     return first_loop
 
 
@@ -24,10 +24,7 @@ def lone_ranger(start, stop, step):
 
     Look up the docs for range() and wrap it in a 1:1 way
     """
-    second_loop = []
-    for i in range(start, stop, step):
-        second_loop.append(i)
-    return second_loop
+    return range(start, stop, step)
 
 
 def two_step_ranger(start, stop):
@@ -36,12 +33,7 @@ def two_step_ranger(start, stop):
     Sometimes you want to hide complexity.
     Make a range function that always has a step size of 2
     """
-    step = 2
-    third_loop = []
-    while start < stop:
-        third_loop.append(start)
-        start += step
-    return third_loop
+    return range(start, stop, 2)
 
 
 def gene_krupa_range(start, stop, even_step, odd_step):
@@ -50,16 +42,20 @@ def gene_krupa_range(start, stop, even_step, odd_step):
     make a list that instead of having evenly spaced steps
     has odd steps be one size and even steps be another.
     """
-    fourth_loop = []
-    loop = 0
-    while start < stop:
-        fourth_loop.append(start)
-        if loop % 2 == 0:
-            start += even_step
+
+    gene_can_drum = []
+
+    latest = start
+    beat = 0
+
+    while latest < stop:
+        gene_can_drum.append(latest)
+        if beat % 2 == 0:
+            latest += even_step
         else:
-            start += odd_step
-        loop += 1
-    return fourth_loop
+            latest += odd_step
+        beat += 1
+    return gene_can_drum
 
 
 def stubborn_asker(low, high):
@@ -68,15 +64,17 @@ def stubborn_asker(low, high):
     Ask for a number, and if the response is outside the bounds keep asking
     until you get a number that you think is OK
     """
-    message = "come on give me a number between {}, and {}".format(low, high)
-
-    input_number = int(raw_input(message))
-    if low < input_number < high:
-        print("Thanks! {} looks good.".format(input_number))
-        return input_number
-    else:
-        print("{input} isn't between {}, and {} ".format(input_number,
-                                                         low, high))
+    message = "Give me a number between {low}, and {high}: ".format(low=low,
+                                                                    high=high)
+    while True:
+        input_number = int(raw_input(message))
+        if low < input_number < high:
+            print("Thanks! {} looks good.".format(input_number))
+            return input_number
+        else:
+            print("{input} not between {low}, and {high}".format(input_number,
+                                                                 low=low,
+                                                                 high=high))
 
 
 def not_number_rejector(message):
@@ -86,16 +84,15 @@ def not_number_rejector(message):
     "six", "8!") then throw it out and ask for an actual number.
     When you do get a number, return it.
     """
-    Test = False
-    Quest = "Give us a number... pleeeeeaaaase"
-    while Test is False:
+    message = "Give me a number:"
+
+    while True:
         try:
-            Test = True
-            my_number = int(raw_input(Quest))
-            return(my_number)
-        except:
-            print("That's not a number")
-            Test = False
+            input_number = int(raw_input(message))
+            print("Thanks! {} is good.".format(input_number))
+            return input_number
+        except Exception as e:
+            print("err, wot, try again ({})".format(e))
 
 
 def super_asker(low, high):
@@ -104,19 +101,6 @@ def super_asker(low, high):
     Combine stubborn_asker and not_number_rejector to make a function
     that does it all!
     """
-    Test = False
-    Quest = "Enter a number between "
-    lo = low
-    hi = high
-    while Test is False:
-        try:
-            my_number = int(raw_input("%s%s and %s: "(Quest, lo, hi)))
-            while not lo <= my_number <= hi:
-                my_number = int(raw_input("%s%s and %s: " % (Quest,
-                                                             low, high)))
-            return(my_number)
-        except:
-            print("That's not a valid entry!")
 
 
 if __name__ == "__main__":
