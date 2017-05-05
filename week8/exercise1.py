@@ -48,12 +48,15 @@ def fizz_buzz():
     fizzBuzzList = []
     for j in range(1, 100):
         if j % 3 == 0 and j % 5 == 0:
-            return "FizzBuzz"
+            fizzBuzzList.append("FizzBuzz")
         elif j % 3 == 0:
-            return "Fizz"
+            fizzBuzzList.append("Fizz")
         elif j % 5 == 0:
-            return "Buzz"
-        print (fizzBuzzList)
+            fizzBuzzList.append("Buzz")
+        else:
+            fizzBuzzList.append(j)
+
+    print (fizzBuzzList)
 
 
 def put_behind_bars(input_string="very naughty boy"):
