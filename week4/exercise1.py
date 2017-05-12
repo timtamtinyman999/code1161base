@@ -28,7 +28,18 @@ def success_is_relative():
     # this depends on excecution context. Take a look at your CWD and remember
     # that it changes.
     # print(path, CWD)
-    pass
+
+    file_path = "week1/pySuccessMessage.json"
+    mode = "r"
+    pySuccessMessage = open(file_path, mode)
+    r = pySuccessMessage.read().strip()
+    return r
+
+    # convert = json.loads(r)
+    # response = convert["message"]
+    # message = "this is what is says: \n\t"
+    # print(message + response)
+    # pySuccessMessage.close()
 
 
 def get_some_details():
@@ -135,6 +146,7 @@ def diarist():
 
 
 if __name__ == "__main__":
+    print(success_is_relative())
     print([len(w) for w in wordy_pyramid()])
     print(get_some_details())
     print(wunderground())
