@@ -59,11 +59,11 @@ def get_some_details():
          dictionaries.
     """
     json_data = open(LOCAL + "/lazyduck.json").read()
-
-    data = json.loads(json_data)
-    return {"lastName":       None,
-            "password":       None,
-            "postcodePlusID": None
+    data = json.loads(json_data)["results"][0]
+    pstcodeIDSum = int(data["location"]["postcode"]) + int(data["id"]["value"])
+    return {"lastName":       data["name"]["last"],
+            "password":       data["login"]["password"],
+            "postcodePlusID": pstcodeIDSum
             }
 
 
@@ -102,18 +102,19 @@ def wordy_pyramid():
     pyramid = []
     url = "http://www.setgetgo.com/randomword/get.php?len="
     for length in range(3, 20, 2):
-        wordlength = requests.get(url + str(length)).text
-        pyramid.append(str(wordlength))
+        wordOfLength = requests.get(url + str(length)).text
+        pyramid.append(wordOfLength)
 
     for length in range(20, 3, -2):
-            wordlength = requests.get(url + str(length)).text
-            pyramid.append(str(wordlength))
+            wordOfLength = requests.get(url + str(length)).text
+            pyramid.append(wordOfLength)
 
-    separate = ("\n".join(pyramid))
-
-    print (separate)
-    return separate
-    # return pyramid
+    # separate = ("\n".join(pyramid))
+    # print (type(separate))
+    # print (separate)
+    # return separate
+    print (pyramid)
+    return pyramid
 
 
 def wunderground():
@@ -127,8 +128,8 @@ def wunderground():
          get very long. If you are accessing a thing often, assign it to a
          variable and then future access will be easier.
     """
-    base = "http://api.wunderground.com/api/"
-    api_key = "YOUR KEY - REGISTER TO GET ONE"
+    base = "http://api.wunderground.com/api"
+    api_key = "2a7730bdd6f6ff60"
     country = "AU"
     city = "Sydney"
     template = "{base}/{key}/conditions/q/{country}/{city}.json"
@@ -137,10 +138,12 @@ def wunderground():
     the_json = json.loads(r.text)
     obs = the_json['current_observation']
 
-    return {"state":           None,
-            "latitude":        None,
-            "longitude":       None,
-            "local_tz_offset": None}
+    dict1 = {"state":           obs["display_location"]["state"],
+             "latitude":        obs["display_location"]["latitude"],
+             "longitude":       obs["display_location"]["longitude"],
+             "local_tz_offset": obs["local_tz_offset"]}
+    print(str(dict1))
+    return dict1
 
 
 def diarist():
