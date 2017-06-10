@@ -17,23 +17,24 @@ if LOCAL != CWD:
 
 def success_is_relative():
     """Read from a file.
-
     Read the success message from week 1, but from here, using a relative path.
     TIP: remember that it's relative to your excecution context, not this file.
          The tests are run from the code1161base directory, that's the
          excecution context for this test.
-    TIP: check that there ins't unwanted whitespace or line endings in the
+    TIP: check that there isn't unwanted whitespace or line endings in the
          response. Look into .strip() and see what it does.
     """
     # this depends on excecution context. Take a look at your CWD and remember
     # that it changes.
     # print(path, CWD)
-    pass
+
+    fileOpen = open("week1/pySuccessMessage.json", "r")
+    return (fileOpen.read().strip())
+    fileOpen.close()
 
 
 def get_some_details():
     """Parse some JSON.
-
     In lazyduck.json is a description of a person from https://randomuser.me/
     Read it in and use the json library to convert it to a dictionary.
     Return a new dictionary that just has the last name, password, and the
@@ -49,16 +50,17 @@ def get_some_details():
     """
     json_data = open(LOCAL + "/lazyduck.json").read()
 
-    data = json.loads(json_data)
-    return {"lastName":       None,
-            "password":       None,
-            "postcodePlusID": None
+    data = json.loads(json_data)  # load converts from string to dictionary
+    return {"lastName":       data["results"][0]["name"]["last"],
+            "password":       data["results"][0]["login"]["password"],
+            "postcodePlusID": data["results"][0]["location"]["postcode"] +
+            int(data["results"][0]["id"]["value"])
+
             }
 
 
 def wordy_pyramid():
     """Make a pyramid out of real words.
-
     There is a random word generator here: http://www.setgetgo.com/randomword/
     The only argument that the generator takes is the length of the word.
     Use this and the requests library to make a word pyramid. The shortest
@@ -88,12 +90,26 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
     """
-    pass
+
+    pyramid = []
+    URL = "http://www.setgetgo.com/randomword/get.php?len="
+
+    for i in range(3, 21, 2):
+        r = requests.get(URL + str(i))
+        word = r.text
+        print(word)
+        pyramid.append(word)
+
+    for j in range(20, 3, -2):
+        r = requests.get(URL + str(j))
+        word = r.text
+        print(word)
+        pyramid.append(word)
+    return pyramid
 
 
 def wunderground():
     """Find the weather station for Sydney.
-
     Get some json from a request parse it and extract values.
     Sign up to https://www.wunderground.com/weather/api/ and get an API key
     TIP: reading json can someimes be a bit confusing. Use a tool like
@@ -103,7 +119,7 @@ def wunderground():
          variable and then future access will be easier.
     """
     base = "http://api.wunderground.com/api/"
-    api_key = "YOUR KEY - REGISTER TO GET ONE"
+    api_key = "c2bc22f1a748d493"
     country = "AU"
     city = "Sydney"
     template = "{base}/{key}/conditions/q/{country}/{city}.json"
@@ -111,16 +127,17 @@ def wunderground():
     r = requests.get(url)
     the_json = json.loads(r.text)
     obs = the_json['current_observation']
+    obs2 = obs['display_location']
 
-    return {"state":           None,
-            "latitude":        None,
-            "longitude":       None,
-            "local_tz_offset": None}
+    return {"state":           obs2['state'],
+            "latitude":        obs['observation_location']['latitude'],
+            "longitude":       obs['observation_location']['longitude'],
+            "local_tz_offset": obs['local_tz_offset']}
+    pass
 
 
 def diarist():
     """Read gcode and find facts about it.
-
     Read in Trispokedovetiles(laser).gcode and count the number of times the
     laser is turned on and off. That's the command "M10 P1".
     Write the answer (a number) to a file called 'lasers.pew'
@@ -131,11 +148,23 @@ def diarist():
     TIP: remember to commit 'lasers.pew' and push it to your repo, otherwise
          the test will have nothing to look at.
     """
-    pass
+    inputFile = open('week4/Trispokedovetiles(laser).gcode', 'r')
+    outputFile = open('week4/lasers.pew', 'w')
+
+    count = 0
+
+    for x in inputFile.readlines():
+        if "M10 P1" in x:
+            count = count + 1
+    outputFile.write(str(count))
+    inputFile.close()
+    outputFile.close()
 
 
 if __name__ == "__main__":
-    print([len(w) for w in wordy_pyramid()])
+    success_is_relative()
     print(get_some_details())
+    print([len(w) for w in wordy_pyramid()])
     print(wunderground())
-    print(diarist())
+
+print(diarist())
